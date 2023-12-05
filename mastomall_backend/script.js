@@ -1,33 +1,34 @@
-require('dotenv').config()
+require('dotenv').config();
 
-const express = require("express")
-const app = express()
+const express = require("express");
+const app = express();
 const cors = require('cors');
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 app.use('/uploads', express.static('uploads')); // Serve uploaded files
-
 app.use(cors());
 
-mongoose.connect(process.env.DATABASE_URL)
-const db = mongoose.connection
+const dbConnectionURL = process.env.DATABASE_URL;
+mongoose.connect(dbConnectionURL, { useNewUrlParser: true, useUnifiedTopology: true });
 
-db.on('error', (error) => console.error(error))
-db.once('open', () => console.log("Connected to database"))
+const db = mongoose.connection;
 
-app.use(express.json())
+db.on('error', (error) => console.error(error));
+db.once('open', () => console.log("Connected to database"));
 
-const usersRouter = require('./routes/users')
-app.use('/users', usersRouter)
+app.use(express.json());
 
-const productsRouter = require('./routes/products')
-app.use('/products', productsRouter)
+const usersRouter = require('./routes/users');
+app.use('/users', usersRouter);
 
-const filesRouter = require('./routes/files')
-app.use('/files', filesRouter)
+const productsRouter = require('./routes/products');
+app.use('/products', productsRouter);
 
-const authenticationRouter = require('./routes/authentication')
-app.use('/auth', authenticationRouter)
+const filesRouter = require('./routes/files');
+app.use('/files', filesRouter);
 
-const port = process.env.PORT;
-app.listen(port, console.log("Server started "))
+const authenticationRouter = require('./routes/authentication');
+app.use('/auth', authenticationRouter);
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Server started on port ${port}`));
