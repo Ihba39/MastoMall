@@ -1,0 +1,24 @@
+
+
+ .sidebar {
+  width: 15%;
+  position: fixed;
+  top: 195px; /* Adjust this value to align with the first card below the recommended section */
+  left: 0;
+  bottom: 0;
+  padding-top: 30px; /* Add padding at the top for space */
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+
+.main-content {
+  padding-top: 160px; /* This should match the 'top' value of the sidebar */
+}
+
+
+
+

@@ -1,0 +1,138 @@
+
+
+/* New styles for the popup */
+.popup {
+  position: fixed; /* Positioning the popup over everything else */
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  align-items: center; /* Center the popup vertically */
+  justify-content: center; /* Center the popup horizontally */
+  z-index: 10; /* Make sure it's above other content */
+  transition: opacity 0.3s ease; /* Smooth transition for the overlay */
+}
+
+.popup-inner {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%; /* Adjust the width as needed */
+  max-width: 500px; /* Maximum width */
+  text-align: center; /* Centering text */
+  transition: transform 0.3s ease; /* Smooth transition for the popup */
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+
+.card{
+    background-color: white;
+}
+
+.card-price {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Rest of your CSS */
+
+.button-4 {
+    appearance: none;
+    background-color: #FAFBFC;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: #24292E;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    list-style: none;
+    padding: 6px 16px;
+    position: relative;
+    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: break-word;
+  }
+  
+  .button-4:hover {
+    background-color: #F3F4F6;
+    text-decoration: none;
+    transition-duration: 0.1s;
+  }
+  
+  .button-4:disabled {
+    background-color: #FAFBFC;
+    border-color: rgba(27, 31, 35, 0.15);
+    color: #959DA5;
+    cursor: default;
+  }
+  
+  .button-4:active {
+    background-color: #EDEFF2;
+    box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+    transition: none 0s;
+  }
+  
+  .button-4:focus {
+    outline: 1px transparent;
+  }
+  
+  .button-4:before {
+    display: none;
+  }
+  
+  .button-4:-webkit-details-marker {
+    display: none;
+  }
+
+
+
+  /* Popup */
+
+  .message-options {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 8px; /* Add some space between the buttons */
+  }
+  
+  .message-btn {
+    margin: 4px 0; /* Add margin to top and bottom for spacing */
+    /* Style your buttons as required */
+  }
+  
+  .input-area {
+    margin-top: 16px; /* Add some space above the input area */
+  }
+  
+  .message-input {
+    width: 100%; /* Make input take full width */
+    margin-bottom: 8px; /* Add space below the input field */
+    /* Add other input styles as needed */
+  }
+  
+  .send-btn {
+    width: 100%; /* Make send button take full width */
+    /* Style the send button as needed */
+  }
+
+
