@@ -15,8 +15,8 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     cell: {
-        type: String, // You can adjust the type according to your needs (e.g., Number, String, etc.)
-        required: false // Set to true if the cell number is mandatory
+        type: String,
+        required: false
     },
     subscribeDate: {
         type: Date,
