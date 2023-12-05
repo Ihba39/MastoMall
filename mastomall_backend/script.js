@@ -5,7 +5,7 @@ const app = express();
 const cors = require('cors');
 const mongoose = require("mongoose");
 
-app.use('/uploads', express.static('uploads')); // Serve uploaded files
+app.use('/uploads', express.static('uploads'));
 app.use(cors());
 
 const dbConnectionURL = process.env.DATABASE_URL;
