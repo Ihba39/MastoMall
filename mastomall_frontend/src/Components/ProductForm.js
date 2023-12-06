@@ -12,8 +12,8 @@ const ProductForm = () => {
     image: '',
     description: '',
     price: '',
-    category: 'Books',
-    condition: 'New',
+    category: 'Electronics',
+    condition: 'Used',
   });
 
   const [submittedData, setSubmittedData] = useState(null);
