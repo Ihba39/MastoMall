@@ -21,7 +21,7 @@ function App() {
     const axiosConfig = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://localhost:4000/products/',
+      url: 'https://mastomall-backend.vercel.app/products/',
       headers: {}
     };
 
