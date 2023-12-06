@@ -4,6 +4,8 @@
   "description": "",
   "main": "script.js",
   "scripts": {
+    "start": "nodemon script.js",
+    "vercel-build": "echo hello"
     "start": "nodemon script.js"
   },
   "keywords": [],
