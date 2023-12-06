@@ -38,7 +38,7 @@ const Login = () => {
                 try {
                     const config = {
                         method: 'get',
-                        url: 'http://localhost:4000/auth/profile',
+                        url: 'https://mastomall-backend.vercel.app/auth/profile',
                         headers: {
                             'Authorization': `Bearer ${token}`,
                         },
@@ -76,7 +76,7 @@ const Login = () => {
                 password: password,
             };
     
-            const response = await axios.post('http://localhost:4000/auth/login', userData);
+            const response = await axios.post('https://mastomall-backend.vercel.app/auth/login', userData);
     
             // Assuming your response contains a token
             const token = response.data.token;

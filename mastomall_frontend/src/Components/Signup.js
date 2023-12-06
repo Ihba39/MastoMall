@@ -79,7 +79,7 @@ const Signup = () => {
             };
     
             // Make the POST request to the server
-            const response = await axios.post('http://localhost:4000/users/', userData);
+            const response = await axios.post('https://mastomall-backend.vercel.app/users/', userData);
     
             // Navigate to the login page
             navigate('/Login');
