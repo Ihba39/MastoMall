@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Logo from './Assets/logo.jpeg';
-import Shop from './Assets/sellshop.webp';
 import './ProductForm.css';
 import Footer from './Footer';
 import SellNavbar from './SellNav';
@@ -22,25 +20,25 @@ const ProductForm = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   const handleChange = async (e) => {
-    const { title, value } = e.target;
+  const { name, value } = e.target;
 
-    if (title === 'image') {
-      const file = e.target.files[0];
+  if (name === 'image') {
+    const file = e.target.files[0];
 
-      if (file) {
-        const base64String = await convertImageToBase64(file);
-        setProduct((prevProduct) => ({
-          ...prevProduct,
-          [title]: base64String,
-        }));
-      }
-    } else {
+    if (file) {
+      const base64String = await convertImageToBase64(file);
       setProduct((prevProduct) => ({
         ...prevProduct,
-        [title]: value,
+        [name]: base64String,
       }));
     }
-  };
+  } else {
+    setProduct((prevProduct) => ({
+      ...prevProduct,
+      [name]: value,
+    }));
+  }
+};
 
   const convertImageToBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -51,10 +49,6 @@ const ProductForm = () => {
     });
   };
 
-  const handleLoginSignupClick = () => {
-    localStorage.removeItem('authToken');
-    navigate('/Home');
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -69,12 +63,13 @@ const ProductForm = () => {
         category: product.category,
         condition: product.condition,
       });
+      console.log(requestData)
 
       // Set up the Axios configuration
       const config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'http://localhost:4000/products/',
+        url: 'https://mastomall-backend.vercel.app/products',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -111,10 +106,10 @@ const ProductForm = () => {
           <form onSubmit={handleSubmit}>
             <h1>List Your Product</h1>
               <div className="info">
-                <input className="fname" type="text" name="name" placeholder="Title" onSubmit={handleSubmit}/>
+                <input className="fname" type="text" name="name" placeholder="Title" title="name" value={product.name} onChange={handleChange}/>
                 <label htmlFor="dropdown">Select the Category:</label>
                   <select
-                    id="dropdown"
+                    id="dropdown1"
                     value={product.category}
                     onChange={(e) => handleChange({ target: { title: 'category', value: e.target.value } })}
                   >
@@ -123,7 +118,7 @@ const ProductForm = () => {
                     <option value="Furniture">Furniture</option>
                     <option value="Clothing">Clothing</option>
                   </select>
-                <input type="text" name="phone" placeholder="Price" />
+                <br />
                 <label htmlFor="dropdown">Select the condition:</label>
               <select
                 id="dropdown"
@@ -134,12 +129,11 @@ const ProductForm = () => {
                 <option value="Used">Used</option>
                 <option value="Moderate">Moderate</option>
               </select>
-               <p>Upload an Image</p><input type="file" name="image" placeholder='Upload an Image'/>
+            <input className="fprice" type="text" name="price" placeholder="Price" title="price" value={product.price} onChange={handleChange}/>
+               <p>Upload an Image</p><input type="file" name="image" placeholder='Upload an Image' title="image" onChange={handleChange}/>
               </div>
-              <p>Description</p>
-              <div>
-                <textarea rows="4"></textarea>
-              </div>
+              <input className="fdescription" type="text" name="description" placeholder="Description" title="description" value={product.description} onChange={handleChange}/>
+             
               <button className="navbar-primary-button" type="submit">Submit </button>
           </form>
         </div>

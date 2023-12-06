@@ -1,0 +1,39 @@
+.heading{
+    font-size: xx-large;
+    text-align: center;
+    align-items: center;
+}
+
+.card{
+    position: relative;
+    width: 90%;
+    align-items: center;
+    height: 750px;
+    overflow: hidden;
+}
+
+.imgBx{
+    position: relative;
+    max-width: 400px;
+    align-items: center;
+    height: 350px;
+    overflow: hidden;
+}
+
+.button{
+    padding: 0.9rem 1.75rem;
+    background-color: rgb(234, 234, 234);
+    outline: none;
+    border: none;
+    border-radius: 5rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    width: 80%;
+    align-items: center;
+}
+
+.button:hover {
+  background-color: orange;
+}

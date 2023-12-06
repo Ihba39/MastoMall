@@ -7,7 +7,6 @@ function SellNavbar() {
   const navigate = useNavigate();
 
   const handleProfileClick = () => {
-    console.log("navigating")
     navigate("/your-products")
   };
 

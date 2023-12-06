@@ -1,53 +1,68 @@
 import React, { useState, useEffect } from "react";
-import Products from "../Products/Products";
-import SellNav from "./SellNav";
+import axios from "axios";
+import './ProfileProducts.css'
 import Footer from "./Footer";
-import axios from 'axios';
+import Navbar from "./Navbar";
 
-const ProfileProducts = () => {
+const DisplayProducts = () => {
   const [products, setProducts] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [query, setQuery] = useState("");
-  const [priceRange, setPriceRange] = useState(null);
 
   useEffect(() => {
     // Define the Axios configuration for the API request
     const axiosConfig = {
       method: 'get',
-      maxBodyLength: Infinity,
-      url: 'http://localhost:4000/products/',
-      headers: {}
+      url: 'https://mastomall-backend.vercel.app/products/',
     };
 
-    // Make the API request when the component mounts
+    
     axios.request(axiosConfig)
       .then((response) => {
-        setProducts(response.data); // Update the state with the fetched data
+        setProducts(response.data); 
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []); // The empty dependency array ensures that the effect runs only once when the component mounts
+  }, []); 
 
-  const handleChange = (event) => {
-    const value = event.target.value;
-    if (value.includes('-')) {
-      setPriceRange(value.split('-').map(Number));
-    } else {
-      setSelectedCategory(value);
+  const handleDelete = async (productId) => {
+    try {
+     
+      await axios.delete(`https://mastomall-backend.vercel.app/products/${productId}`);
+
+      // Update the state to remove the deleted product
+      setProducts((prevProducts) =>
+        prevProducts.filter((product) => product._id !== productId)
+      );
+    } catch (error) {
+      console.error("Error deleting product:", error);
     }
   };
 
-  const result = (products);
-
   return (
-     
-    <><h1>Your Products</h1>
-    <SellNav />
-      <Products result={result} />
-    <Footer />
+    <>
+      <Navbar />
+      <br />
+      <br />
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+       <p class='heading'>Product List</p>
+       <br />
+       {products.map((product) => (
+            <div key={product._id} style={{ border: '1px solid #ddd', padding: '10px', margin: '10px', minWidth: '200px' }}> 
+              <div class="card">
+                <div class="imgBx">
+                      <img src={`data:image/jpeg;base64,${product.image}`} alt="fetch-image" />
+                </div>
+                    <h3>Condition:</h3> <span>{product.condition}</span>
+                    <h3>Category:</h3> <span>{product.category}</span>
+                    <h3>Price:</h3> <span>{product.price}</span>
+                  </div>
+                  <button onClick={() => handleDelete(product._id)} class='button'>Update as Sold</button>
+                </div>
+              ))}
+              <Footer />
+    </div>
     </>
   );
 };
 
-export default ProfileProducts;
+export default DisplayProducts;

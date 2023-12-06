@@ -7,6 +7,7 @@ import Products from "./Products/Products";
 import Sidebar from "./Sidebar/Sidebar";
 import Card from "./Components/Card";
 import ProductForm from "./Components/ProductForm";
+import ProfileProducts from "./Components/ProfileProducts";
 import axios from 'axios';
 import './App.css';
 
@@ -96,7 +97,8 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/buy-page" element={<BuyPage />} /> 
-        <Route path="/sell-page" element={<ProductForm />} /> 
+        <Route path="/sell-page" element={<ProductForm />} />
+        <Route path="/your-products" element={<ProfileProducts />} />
       </Routes>
     </BrowserRouter>
   );
