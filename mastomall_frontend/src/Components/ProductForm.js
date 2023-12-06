@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Logo from './Assets/logo.jpeg';
 import './ProductForm.css';
+import Footer from './Footer';
+import SellNavbar from './SellNav';
 
 const ProductForm = () => {
   const navigate = useNavigate();
@@ -11,33 +12,33 @@ const ProductForm = () => {
     image: '',
     description: '',
     price: '',
-    category: 'Books',
-    condition: 'New',
+    category: 'Electronics',
+    condition: 'Used',
   });
 
   const [submittedData, setSubmittedData] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
 
   const handleChange = async (e) => {
-    const { title, value } = e.target;
+  const { name, value } = e.target;
 
-    if (title === 'image') {
-      const file = e.target.files[0];
+  if (name === 'image') {
+    const file = e.target.files[0];
 
-      if (file) {
-        const base64String = await convertImageToBase64(file);
-        setProduct((prevProduct) => ({
-          ...prevProduct,
-          [title]: base64String,
-        }));
-      }
-    } else {
+    if (file) {
+      const base64String = await convertImageToBase64(file);
       setProduct((prevProduct) => ({
         ...prevProduct,
-        [title]: value,
+        [name]: base64String,
       }));
     }
-  };
+  } else {
+    setProduct((prevProduct) => ({
+      ...prevProduct,
+      [name]: value,
+    }));
+  }
+};
 
   const convertImageToBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -48,10 +49,6 @@ const ProductForm = () => {
     });
   };
 
-  const handleLoginSignupClick = () => {
-    localStorage.removeItem('authToken');
-    navigate('/Home');
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,12 +63,13 @@ const ProductForm = () => {
         category: product.category,
         condition: product.condition,
       });
+      console.log(requestData)
 
       // Set up the Axios configuration
       const config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'https://mastomall-backend.vercel.app/products/',
+        url: 'https://mastomall-backend.vercel.app/products',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -102,51 +100,26 @@ const ProductForm = () => {
 
   return (
     <>
-      <nav>
-        <div className="nav-logo-container">
-          <img src={Logo} alt="" className="nav-logo" />
-        </div>
-        <div className="nav-text-section">
-          <h1 className="nav-primary-heading">Mastodon Mall</h1>
-        </div>
-        <div className="navbar-links-container">
-          <button className="back-primary-button" onClick={handleLoginSignupClick}>
-            LogOut
-          </button>
-        </div>
-      </nav>
-      <div className="app-container">
-        <form onSubmit={handleSubmit}>
-          <div className="row">
-            <div className="column" id="first-column">
-              <label>
-                <h3 className="h3">Upload an Image:</h3>
-                <input type="file" title="image" onChange={handleChange} />
-              </label>
-            </div>
-            <div className="column" id="second-column">
-              <h2>List Your Product</h2>
-              <label className="title">
-                Name:
-                <input type="text" title="name" value={product.name} onChange={handleChange} />
-              </label>
-              <br />
-              <label htmlFor="dropdown">Select the Category:</label>
-              <select
-                id="dropdown"
-                value={product.category}
-                onChange={(e) => handleChange({ target: { title: 'category', value: e.target.value } })}
-              >
-                <option value="Books">Books</option>
-                <option value="Electronics">Electronics</option>
-                <option value="Furniture">Furniture</option>
-                <option value="Clothing">Clothing</option>
-              </select>
-              <br />
-              <br />
-              <br />
-              <br />
-              <label htmlFor="dropdown">Select the condition:</label>
+      <SellNavbar />
+      <div className="main-block">
+        <div className='right-part'>
+          <form onSubmit={handleSubmit}>
+            <h1>List Your Product</h1>
+              <div className="info">
+                <input className="fname" type="text" name="name" placeholder="Title" title="name" value={product.name} onChange={handleChange}/>
+                <label htmlFor="dropdown">Select the Category:</label>
+                  <select
+                    id="dropdown1"
+                    value={product.category}
+                    onChange={(e) => handleChange({ target: { title: 'category', value: e.target.value } })}
+                  >
+                    <option value="Books">Books</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Furniture">Furniture</option>
+                    <option value="Clothing">Clothing</option>
+                  </select>
+                <br />
+                <label htmlFor="dropdown">Select the condition:</label>
               <select
                 id="dropdown"
                 value={product.condition}
@@ -156,32 +129,16 @@ const ProductForm = () => {
                 <option value="Used">Used</option>
                 <option value="Moderate">Moderate</option>
               </select>
-              <br />
-              <br />
-              <br />
-              <br />
-              <label>
-                Price:
-                <input type="text" title="price" value={product.price} onChange={handleChange} />
-              </label>
-              <br />
-              <label>
-                Description:
-                <textarea
-                  title="description"
-                  value={product.description}
-                  onChange={handleChange}
-                />
-              </label>
-            </div>
-          </div>
-          <br />
-          <br />
-          <button className="navbar-primary-button" type="submit">
-            Submit
-          </button>
-        </form>
+            <input className="fprice" type="text" name="price" placeholder="Price" title="price" value={product.price} onChange={handleChange}/>
+               <p>Upload an Image</p><input type="file" name="image" placeholder='Upload an Image' title="image" onChange={handleChange}/>
+              </div>
+              <input className="fdescription" type="text" name="description" placeholder="Description" title="description" value={product.description} onChange={handleChange}/>
+             
+              <button className="navbar-primary-button" type="submit">Submit </button>
+          </form>
+        </div>
       </div>
+      <Footer />
     </>
   );
 };
