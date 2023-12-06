@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Logo from './Assets/logo.jpeg';
+import Shop from './Assets/sellshop.webp';
 import './ProductForm.css';
+import Footer from './Footer';
+import SellNavbar from './SellNav';
 
 const ProductForm = () => {
   const navigate = useNavigate();
@@ -71,7 +74,7 @@ const ProductForm = () => {
       const config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'https://mastomall-backend.vercel.app/products/',
+        url: 'http://localhost:4000/products/',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -102,51 +105,26 @@ const ProductForm = () => {
 
   return (
     <>
-      <nav>
-        <div className="nav-logo-container">
-          <img src={Logo} alt="" className="nav-logo" />
-        </div>
-        <div className="nav-text-section">
-          <h1 className="nav-primary-heading">Mastodon Mall</h1>
-        </div>
-        <div className="navbar-links-container">
-          <button className="back-primary-button" onClick={handleLoginSignupClick}>
-            LogOut
-          </button>
-        </div>
-      </nav>
-      <div className="app-container">
-        <form onSubmit={handleSubmit}>
-          <div className="row">
-            <div className="column" id="first-column">
-              <label>
-                <h3 className="h3">Upload an Image:</h3>
-                <input type="file" title="image" onChange={handleChange} />
-              </label>
-            </div>
-            <div className="column" id="second-column">
-              <h2>List Your Product</h2>
-              <label className="title">
-                Name:
-                <input type="text" title="name" value={product.name} onChange={handleChange} />
-              </label>
-              <br />
-              <label htmlFor="dropdown">Select the Category:</label>
-              <select
-                id="dropdown"
-                value={product.category}
-                onChange={(e) => handleChange({ target: { title: 'category', value: e.target.value } })}
-              >
-                <option value="Books">Books</option>
-                <option value="Electronics">Electronics</option>
-                <option value="Furniture">Furniture</option>
-                <option value="Clothing">Clothing</option>
-              </select>
-              <br />
-              <br />
-              <br />
-              <br />
-              <label htmlFor="dropdown">Select the condition:</label>
+      <SellNavbar />
+      <div className="main-block">
+        <div className='right-part'>
+          <form onSubmit={handleSubmit}>
+            <h1>List Your Product</h1>
+              <div className="info">
+                <input className="fname" type="text" name="name" placeholder="Title" onSubmit={handleSubmit}/>
+                <label htmlFor="dropdown">Select the Category:</label>
+                  <select
+                    id="dropdown"
+                    value={product.category}
+                    onChange={(e) => handleChange({ target: { title: 'category', value: e.target.value } })}
+                  >
+                    <option value="Books">Books</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Furniture">Furniture</option>
+                    <option value="Clothing">Clothing</option>
+                  </select>
+                <input type="text" name="phone" placeholder="Price" />
+                <label htmlFor="dropdown">Select the condition:</label>
               <select
                 id="dropdown"
                 value={product.condition}
@@ -156,32 +134,17 @@ const ProductForm = () => {
                 <option value="Used">Used</option>
                 <option value="Moderate">Moderate</option>
               </select>
-              <br />
-              <br />
-              <br />
-              <br />
-              <label>
-                Price:
-                <input type="text" title="price" value={product.price} onChange={handleChange} />
-              </label>
-              <br />
-              <label>
-                Description:
-                <textarea
-                  title="description"
-                  value={product.description}
-                  onChange={handleChange}
-                />
-              </label>
-            </div>
-          </div>
-          <br />
-          <br />
-          <button className="navbar-primary-button" type="submit">
-            Submit
-          </button>
-        </form>
+               <p>Upload an Image</p><input type="file" name="image" placeholder='Upload an Image'/>
+              </div>
+              <p>Description</p>
+              <div>
+                <textarea rows="4"></textarea>
+              </div>
+              <button className="navbar-primary-button" type="submit">Submit </button>
+          </form>
+        </div>
       </div>
+      <Footer />
     </>
   );
 };
